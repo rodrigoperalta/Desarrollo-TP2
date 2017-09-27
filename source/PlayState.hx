@@ -23,10 +23,6 @@ class PlayState extends FlxState
 		
 		//FlxG.worldBounds.set(0, 0, tilemap.width, tilemap.height);
 		
-		if (FlxG.camera.x < player.x) 
-		{
-			
-		}
 		
 		
 		add(guide);
@@ -37,5 +33,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);	
+		Reg.limiteX += Reg.velCamera*elapsed;
+		trace(player.x);
 	}
 }

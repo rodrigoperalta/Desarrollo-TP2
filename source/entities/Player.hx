@@ -2,7 +2,9 @@ package entities;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import entities.Shot;
 
 /**
  * ...
@@ -10,36 +12,38 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite
 {
-	private var limiteIzqX:Float;
+
+	public var bullet:Shot;
+
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
-		limiteIzqX = 0;
+
 		super(X, Y, SimpleGraphic);
+
 		loadGraphic(AssetPaths.hummingbird__png, true, 32, 16);
 		animation.add("fly", [0, 1], 12, true);
 		animation.play("fly");
-		
+		bullet = new Shot();
+		FlxG.state.add(bullet);
 
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 
-		limiteIzqX += Reg.velCamera*elapsed;
 		super.update(elapsed);
 		velocity.set(Reg.velCamera, 0);
 		movement();
+		shoot();
 
 	}
 
 	private function movement():Void
 	{
 
-		
-
 		if (FlxG.keys.pressed.RIGHT)
 		{
-			if (x<FlxG.width+width/2)
+			if (this.x<Reg.limiteX+FlxG.width-this.width)
 			{
 				velocity.x += 100;
 			}
@@ -47,7 +51,7 @@ class Player extends FlxSprite
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
-			if (this.x>limiteIzqX)
+			if (this.x>Reg.limiteX)
 			{
 				velocity.x -= 100;
 			}
@@ -56,7 +60,7 @@ class Player extends FlxSprite
 
 		if (FlxG.keys.pressed.UP)
 		{
-			if (y>0-height/2)
+			if (y>0+this.height/2)
 			{
 				velocity.y -= 100;
 			}
@@ -65,11 +69,22 @@ class Player extends FlxSprite
 
 		if (FlxG.keys.pressed.DOWN)
 		{
-			if (y<FlxG.height-height)
+			if (y<FlxG.height-this.height)
 			{
 				velocity.y += 100;
 			}
 
+		}
+
+	}
+
+	private function shoot():Void
+	{
+		if (FlxG.keys.justPressed.SPACE)
+		{
+			bullet.reset(this.x + 10, this.y + 5);
+
+			bullet.velocity.x = Reg.velBullet;
 		}
 
 	}
