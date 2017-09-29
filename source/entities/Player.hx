@@ -15,19 +15,24 @@ class Player extends FlxSprite
 {
 
 	public var bullet:Shot;
+	private var vidas(get, null):Int;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 
 		super(X, Y, SimpleGraphic);
-
+		vidas = 3;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);
-		animation.add("straight", [0], 1, false);		
+		animation.add("straight", [0], 1, false);
+		animation.play("straight");
 		bullet = new Shot();
 		FlxG.state.add(bullet);
-
+		scale.set(0.7, 0.7);
+		updateHitbox();
+		height = height / 2;
+		offset.y = height;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -63,7 +68,7 @@ class Player extends FlxSprite
 
 		if (FlxG.keys.pressed.UP)
 		{
-			if (y>0+this.height/2)
+			if (y>0/*+this.height/2*/)
 			{
 				velocity.y -= Reg.velPlayer;
 			}
@@ -106,6 +111,20 @@ class Player extends FlxSprite
 		{
 			animation.play("up");
 		}
+	}
+
+	function get_vidas():Int
+	{
+		return vidas;
+	}
+	
+	public function lose_Life():Void
+	{
+		if (vidas !=0)
+		{
+			vidas--;
+		}
+
 	}
 }
 
