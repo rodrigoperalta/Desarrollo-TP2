@@ -1,0 +1,5 @@
+<level width="10000" height="240">
+  <Entities>
+    <Player id="0" x="18" y="90" />
+  </Entities>
+</level>

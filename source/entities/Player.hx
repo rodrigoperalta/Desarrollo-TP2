@@ -1,5 +1,6 @@
 package entities;
 
+//import cpp.Void;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
@@ -20,9 +21,10 @@ class Player extends FlxSprite
 
 		super(X, Y, SimpleGraphic);
 
-		loadGraphic(AssetPaths.hummingbird__png, true, 32, 16);
-		animation.add("fly", [0, 1], 12, true);
-		animation.play("fly");
+		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
+		animation.add("up", [1], 1, false);
+		animation.add("down", [2], 1, false);
+		animation.add("straight", [0], 1, false);		
 		bullet = new Shot();
 		FlxG.state.add(bullet);
 
@@ -35,6 +37,7 @@ class Player extends FlxSprite
 		velocity.set(Reg.velCamera, 0);
 		movement();
 		shoot();
+		aniMov();
 
 	}
 
@@ -45,7 +48,7 @@ class Player extends FlxSprite
 		{
 			if (this.x<Reg.limiteX+FlxG.width-this.width)
 			{
-				velocity.x += 100;
+				velocity.x += Reg.velPlayer;
 			}
 
 		}
@@ -53,7 +56,7 @@ class Player extends FlxSprite
 		{
 			if (this.x>Reg.limiteX)
 			{
-				velocity.x -= 100;
+				velocity.x -= Reg.velPlayer;
 			}
 
 		}
@@ -62,7 +65,7 @@ class Player extends FlxSprite
 		{
 			if (y>0+this.height/2)
 			{
-				velocity.y -= 100;
+				velocity.y -= Reg.velPlayer;
 			}
 
 		}
@@ -71,7 +74,7 @@ class Player extends FlxSprite
 		{
 			if (y<FlxG.height-this.height)
 			{
-				velocity.y += 100;
+				velocity.y += Reg.velPlayer;
 			}
 
 		}
@@ -89,4 +92,20 @@ class Player extends FlxSprite
 
 	}
 
+	private function aniMov():Void
+	{
+		if (this.velocity.y == 0)
+		{
+			animation.play("straight");
+		}
+		else if (this.velocity.y >0)
+		{
+			animation.play("down");
+		}
+		else
+		{
+			animation.play("up");
+		}
+	}
 }
+
