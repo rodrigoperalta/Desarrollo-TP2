@@ -15,12 +15,21 @@ class Player extends FlxSprite
 {
 
 	public var bullet:Shot;
+	private var bulletDouble:Shot;
+	private var bulletMissile:Shot;
 	private var vidas(get, null):Int;
+	private var powerUp:Int;
+	private var pU:PowerUp;
+	private var double:Bool;
+	private var missile:Bool;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 
 		super(X, Y, SimpleGraphic);
+		pU = new PowerUp();
+		double = false;
+		missile = false;
 		vidas = 3;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
@@ -28,11 +37,16 @@ class Player extends FlxSprite
 		animation.add("straight", [0], 1, false);
 		animation.play("straight");
 		bullet = new Shot();
+		bulletDouble = new Shot();
+		bulletMissile = new Shot();
 		FlxG.state.add(bullet);
+		FlxG.state.add(bulletDouble);
+		FlxG.state.add(bulletMissile);
 		scale.set(0.7, 0.7);
 		updateHitbox();
 		height = height / 2;
 		offset.y = height;
+		powerUp = 0;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -43,6 +57,8 @@ class Player extends FlxSprite
 		movement();
 		shoot();
 		aniMov();
+		activatePowerUp();
+		trace(powerUp);
 
 	}
 
@@ -68,7 +84,7 @@ class Player extends FlxSprite
 
 		if (FlxG.keys.pressed.UP)
 		{
-			if (y>0/*+this.height/2*/)
+			if (y>0)
 			{
 				velocity.y -= Reg.velPlayer;
 			}
@@ -93,8 +109,55 @@ class Player extends FlxSprite
 			bullet.reset(this.x + 10, this.y + 5);
 
 			bullet.velocity.x = Reg.velBullet;
+
+			if (double == true)
+			{
+				bulletDouble.reset(this.x + 5, this.y + 5);
+
+				bulletDouble.velocity.x = Reg.velBulletDoubleX;
+				bulletDouble.velocity.y = Reg.velBulletDoubleY;
+
+			}
+			
+			if (missile == true)
+			{
+				bulletDouble.reset(this.x + 5, this.y + 5);
+
+				bulletDouble.velocity.x = Reg.velBulletMissileX;
+				bulletDouble.velocity.y = Reg.velBulletMissileY;
+
+			}
 		}
 
+	}
+
+	public function getPowerUp():Void
+	{
+		powerUp+=1;
+	}
+
+	private function activatePowerUp():Void
+	{
+		if (FlxG.keys.justPressed.Z)
+		{
+
+			if (powerUp == 1)
+			{
+				pU.speedUP();
+			}
+
+			if (powerUp == 2)
+			{
+				double = true;
+			}
+			
+			if (powerUp == 3)
+			{
+				missile = true;
+			}
+
+			powerUp = 0;
+		}
 	}
 
 	private function aniMov():Void
@@ -117,7 +180,7 @@ class Player extends FlxSprite
 	{
 		return vidas;
 	}
-	
+
 	public function lose_Life():Void
 	{
 		if (vidas !=0)
