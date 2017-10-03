@@ -1,4 +1,4 @@
-package;
+package states;
 
 import entities.Guide;
 import flixel.FlxG;
@@ -31,16 +31,6 @@ class PlayState extends FlxState
 		FlxG.camera.follow(guide);
 		tileMap.setTileProperties(0, FlxObject.ANY);
 		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-
 		//FlxG.worldBounds.set(0, 0, tilemap.width, tilemap.height);
 
 		add(tileMap);
@@ -48,7 +38,6 @@ class PlayState extends FlxState
 
 		loader.loadEntities(entityCreator, "Entities");
 		
-
 	}
 
 	override public function update(elapsed:Float):Void
