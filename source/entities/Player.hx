@@ -14,9 +14,9 @@ import entities.Shot;
 class Player extends FlxSprite
 {
 
-	public var bullet:Shot;
-	private var bulletDouble:Shot;
-	private var bulletMissile:Shot;
+	public var bullet(get, null):Shot;
+	private var bulletDouble(get, null):Shot;
+	private var bulletMissile(get, null):Shot;
 	private var vidas(get, null):Int;
 	private var powerUp:Int;
 	private var pU:PowerUp;
@@ -188,6 +188,21 @@ class Player extends FlxSprite
 			vidas--;
 		}
 
+	}
+	
+	public function get_bullet():Shot 
+	{
+		return bullet;
+	}
+	
+	public function get_bulletDouble():Shot 
+	{
+		return bulletDouble;
+	}
+	
+	public function get_bulletMissile():Shot 
+	{
+		return bulletMissile;
 	}
 }
 

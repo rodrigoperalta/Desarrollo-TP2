@@ -6,7 +6,6 @@ import flixel.FlxG;
 import flixel.ui.FlxButton;
 import states.PlayState;
 import openfl.Lib;
-
 /**
  * ...
  * @author ...
