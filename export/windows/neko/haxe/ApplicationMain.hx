@@ -515,7 +515,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "139",
+			build: "149",
 			company: "Rodrigo Peralta",
 			file: "TP2",
 			fps: 60,
