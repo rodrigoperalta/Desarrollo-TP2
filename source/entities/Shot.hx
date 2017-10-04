@@ -25,6 +25,10 @@ class Shot extends FlxSprite
 		
 		if (x>Reg.limiteX+FlxG.width) 
 			kill();
+		if (y<0) 
+		{
+			kill();
+		}
 	}
 	
 }
