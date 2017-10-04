@@ -15,7 +15,7 @@ class Shot extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		makeGraphic(5, 5);
-		kill();
+		
 		
 	}
 	

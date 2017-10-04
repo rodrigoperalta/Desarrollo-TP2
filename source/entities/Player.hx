@@ -3,7 +3,7 @@ package entities;
 //import cpp.Void;
 import flixel.FlxG;
 import flixel.FlxSprite;
-
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import entities.Shot;
 
@@ -14,9 +14,7 @@ import entities.Shot;
 class Player extends FlxSprite
 {
 
-	public var bullet(get, null):Shot;
-	private var bulletDouble(get, null):Shot;
-	private var bulletMissile(get, null):Shot;
+	private var bullets(get, null):FlxTypedGroup<Shot>;
 	private var vidas(get, null):Int;
 	private var powerUp:Int;
 	private var pU:PowerUp;
@@ -36,12 +34,7 @@ class Player extends FlxSprite
 		animation.add("down", [2], 1, false);
 		animation.add("straight", [0], 1, false);
 		animation.play("straight");
-		bullet = new Shot();
-		bulletDouble = new Shot();
-		bulletMissile = new Shot();
-		FlxG.state.add(bullet);
-		FlxG.state.add(bulletDouble);
-		FlxG.state.add(bulletMissile);
+		bullets = new FlxTypedGroup<Shot>();
 		scale.set(0.7, 0.7);
 		updateHitbox();
 		height = height / 2;
@@ -106,25 +99,33 @@ class Player extends FlxSprite
 	{
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			bullet.reset(this.x + 10, this.y + 5);
+			var bullet = new Shot(this.x + 5, this.y + 5);
+			bullets.add(bullet);
+			FlxG.state.add(bullets);
 
 			bullet.velocity.x = Reg.velBullet;
 
 			if (double == true)
 			{
-				bulletDouble.reset(this.x + 5, this.y + 5);
+
+				var bulletDouble = new Shot(this.x + 5, this.y + 5);
+				bullets.add(bulletDouble);
+				FlxG.state.add(bullets);
 
 				bulletDouble.velocity.x = Reg.velBulletDoubleX;
 				bulletDouble.velocity.y = Reg.velBulletDoubleY;
 
 			}
-			
+
 			if (missile == true)
 			{
-				bulletDouble.reset(this.x + 5, this.y + 5);
 
-				bulletDouble.velocity.x = Reg.velBulletMissileX;
-				bulletDouble.velocity.y = Reg.velBulletMissileY;
+				var bulletMissile = new Shot(this.x + 5, this.y + 5);
+				bullets.add(bulletMissile);
+				FlxG.state.add(bullets);
+
+				bulletMissile.velocity.x = Reg.velBulletMissileX;
+				bulletMissile.velocity.y = Reg.velBulletMissileY;
 
 			}
 		}
@@ -150,7 +151,7 @@ class Player extends FlxSprite
 			{
 				double = true;
 			}
-			
+
 			if (powerUp == 3)
 			{
 				missile = true;
@@ -176,7 +177,7 @@ class Player extends FlxSprite
 		}
 	}
 
-	function get_vidas():Int
+	public function get_vidas():Int
 	{
 		return vidas;
 	}
@@ -189,20 +190,12 @@ class Player extends FlxSprite
 		}
 
 	}
-	
-	public function get_bullet():Shot 
+
+	public function get_bullets():FlxTypedGroup<Shot>
 	{
-		return bullet;
+		return bullets;
 	}
+
 	
-	public function get_bulletDouble():Shot 
-	{
-		return bulletDouble;
-	}
-	
-	public function get_bulletMissile():Shot 
-	{
-		return bulletMissile;
-	}
 }
 

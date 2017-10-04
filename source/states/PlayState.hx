@@ -64,10 +64,8 @@ class PlayState extends FlxState
 		Reg.limiteX += Reg.velCamera * elapsed;
 		colPlayerPowerUp();
 		colPlayerTileMap();
-		FlxG.overlap(enemies, player.get_bullet(), colStaticEnemyBullet);
-		FlxG.overlap(enemies, player.get_bulletDouble(), colStaticEnemyBullet);
-		FlxG.overlap(enemies, player.get_bulletMissile(), colStaticEnemyBullet);
-
+		FlxG.collide(enemies, player.get_bullets(), colStaticEnemyBullet);
+		
 	}
 
 	private function entityCreator(entityName:String, entityData:Xml)
@@ -107,7 +105,8 @@ class PlayState extends FlxState
 	private function colStaticEnemyBullet(e:Enemy,s:Shot):Void
 	{
 		enemies.remove(e, true);
-		s.kill();
+		player.get_bullets().remove(s, true);
+		
 	}
 	private function colPlayerPowerUp():Void
 	{
