@@ -16,4 +16,5 @@ class Reg
 	static public var velBulletMissileX:Float = 150;
 	static public var velBulletMissileY:Float = 150;
 	
+	
 }

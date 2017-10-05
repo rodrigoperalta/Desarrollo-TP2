@@ -14,6 +14,7 @@ import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.tile.FlxTilemap;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import openfl.Lib;
 
 class PlayState extends FlxState
 {
@@ -65,7 +66,9 @@ class PlayState extends FlxState
 		Reg.limiteX += Reg.velCamera * elapsed;
 		colPlayerPowerUp();
 		colPlayerTileMap();
+		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colStaticEnemybullet);
+		
 		
 	}
 
@@ -99,7 +102,9 @@ class PlayState extends FlxState
 		
 		if (FlxG.collide(tileMap, player))
 		{
-			trace("holi");
+			player.kill();
+			player.lose_Life();
+			player.resetPlayer(guide.x-(FlxG.width/2)+player.width/2,FlxG.height/2);
 		}
 	}
 	
@@ -113,6 +118,15 @@ class PlayState extends FlxState
 	{
 		
 	
+	}
+	
+	private function checkLose():Void
+	{
+	if (player.get_vidas()<0) 
+	{
+		
+		FlxG.resetState();
+	}
 	}
 	
 	private function colPlayerPowerUp():Void

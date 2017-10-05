@@ -7,6 +7,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import entities.Shot;
 
+
 /**
  * ...
  * @author Rodrigo Peralta
@@ -20,6 +21,7 @@ class Player extends FlxSprite
 	private var pU:PowerUp;
 	private var double:Bool;
 	private var missile:Bool;
+	
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -51,7 +53,7 @@ class Player extends FlxSprite
 		shoot();
 		aniMov();
 		activatePowerUp();
-		trace(powerUp);
+		//trace(powerUp);
 
 	}
 
@@ -131,6 +133,11 @@ class Player extends FlxSprite
 		}
 
 	}
+	
+	public function resetPlayer(x:Float,y:Float):Void
+	{
+		this.reset(x,y);
+	}
 
 	public function getPowerUp():Void
 	{
@@ -184,10 +191,9 @@ class Player extends FlxSprite
 
 	public function lose_Life():Void
 	{
-		if (vidas !=0)
-		{
-			vidas--;
-		}
+		
+			vidas-=1;
+		
 
 	}
 
