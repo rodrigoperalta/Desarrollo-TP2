@@ -30,7 +30,8 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
-
+		
+		FlxG.mouse.visible = false;
 		powerUp = new PowerUp(200, 10);
 		powerUp2 = new PowerUp(250, 10);
 		powerUp3 = new PowerUp(150, 10);
