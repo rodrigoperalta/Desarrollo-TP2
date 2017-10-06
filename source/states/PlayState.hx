@@ -2,6 +2,7 @@ package states;
 
 import entities.Boss;
 import entities.Guide;
+import entities.Interface;
 import entities.NormalEnemy;
 import entities.PowerUp;
 import entities.Enemy;
@@ -23,14 +24,13 @@ import entities.EnemyMove;
 
 class PlayState extends FlxState
 {
+	private var eneBullets:FlxTypedGroup<Shot>;
+	private var powerUps:FlxTypedGroup <PowerUp>;
 	private var player:Player;
 	private var guide:Guide;
 	private var loader:FlxOgmoLoader;
 	private var tileMap:FlxTilemap;
 	private var backGround:FlxBackdrop;
-	private var powerUp:PowerUp;
-	private var powerUp2:PowerUp;
-	private var powerUp3:PowerUp;
 	private var enemies:FlxTypedGroup<Enemy>;
 	private var enemiesMove:FlxTypedGroup<EnemyMove>;
 	private var score:FlxText;
@@ -38,6 +38,7 @@ class PlayState extends FlxState
 	private var lifes:FlxText;
 	private var puntosVidas:Int = 3;
 	private var boss = new Boss();
+	private var gui:Interface;
 	
 
 	override public function create():Void
@@ -45,11 +46,10 @@ class PlayState extends FlxState
 		super.create();
 
 		FlxG.mouse.visible = false;
-		powerUp = new PowerUp(200, 10);
-		powerUp2 = new PowerUp(250, 10);
-		powerUp3 = new PowerUp(150, 10);
+		eneBullets = new FlxTypedGroup<Shot>();
 		enemies = new FlxTypedGroup<Enemy>();
 		enemiesMove = new FlxTypedGroup<EnemyMove>();
+		powerUps = new FlxTypedGroup<PowerUp>();
 		loader = new FlxOgmoLoader(AssetPaths.gradius__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 18, 18, "Tiles");
 		guide = new Guide(FlxG.width / 2, FlxG.height / 2);
@@ -59,6 +59,7 @@ class PlayState extends FlxState
 		score.scrollFactor.x = 0;
 		score.scrollFactor.y = 0;
 		lifes = new FlxText(2, 220, 0, "LIFE", 8);
+		gui = new Interface(60,215);
 		lifes.scrollFactor.x = 0;
 		lifes.scrollFactor.y = 0;
 		add(backGround);
@@ -68,9 +69,7 @@ class PlayState extends FlxState
 
 		add(tileMap);
 		add(guide);
-		add(powerUp);
-		add(powerUp2);
-		add(powerUp3);
+		add(gui);
 		add(score);
 		add(lifes);
 
@@ -82,23 +81,20 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		Reg.limiteX += Reg.velCamera * elapsed;
-		colPlayerPowerUp();
+		
 		colPlayerTileMap();
 		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
-		//FlxG.collide(enemies, player, colPlayerEnemies);
-		//FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);
-		
-		
-		//FlxG.collide(enemies , player, colPlayerBullets);
-		
-		
+		FlxG.collide(enemies, player, colPlayerEnemies);
+		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);		
+		FlxG.collide(eneBullets , player, colPlayerBullets);		
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
 		enemiesMove.forEachAlive(checkEnemyVision);
 		bossBattle();
+		FlxG.collide(powerUps, player, colPlayerPowerUps);
 	}
 	
 	private function colShotEnemPlayer()
@@ -133,21 +129,21 @@ class PlayState extends FlxState
 				add(player);
 
 			case "FixEnemy":
-				var staticEne = new StaticEnemy();
+				var staticEne = new StaticEnemy(powerUps,eneBullets );
 				staticEne.x = x;
 				staticEne.y = y;
 				enemies.add(staticEne);
 				add(enemies);
 
 			case "Enemy":
-				var normalEne = new NormalEnemy();
+				var normalEne = new NormalEnemy( powerUps,eneBullets);
 				normalEne.x = x;
 				normalEne.y = y;
 				enemies.add(normalEne);
 				add(enemies);
 
 			case "EnemyMove":
-				var eneMove = new EnemyMove();
+				var eneMove = new EnemyMove(powerUps);
 				eneMove.x = x;
 				eneMove.y = y;
 				enemiesMove.add(eneMove);
@@ -184,14 +180,14 @@ class PlayState extends FlxState
 		contadorVidas();
 	}
 	
-	/*private function colPlayerBullets(b:Shot, p:Player):Void //
+	private function colPlayerBullets(b:Shot, p:Player):Void 
 	{
-		enemies.remove(b, true);
+		eneBullets.remove(b, true);
 		player.kill();
 		player.lose_Life();
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
 		contadorVidas();
-	}*/
+	}
 
 	private function colPlayerEnemiesMove(e:EnemyMove, p:Player):Void
 	{
@@ -201,15 +197,18 @@ class PlayState extends FlxState
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
 		contadorVidas();
 	}
-
-	/*private function colNormalEnemyMap()
+	
+	private function colPlayerPowerUps(pU:PowerUp, p:Player):Void
 	{
-	if (FlxG.collide(tileMap, enemies))
-	enemies.kill();
-	}*/
+		powerUps.remove(pU, true);
+		player.getPowerUp();
+		
+	}
+
 
 	private function colEnemybullet(e:Enemy,s:Shot):Void
 	{
+		e.dropPowerUp();
 		enemies.remove(e, true);
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
@@ -222,12 +221,8 @@ class PlayState extends FlxState
 		contadorPuntaje();
 	}
 
-	private function colStaticEnemyBulletplayer(p:Player,s:Shot):Void
-	{
-		
-		
-	}
-
+	
+	
 	private function checkLose():Void
 	{
 		if (player.get_vidas()<0)
@@ -237,26 +232,7 @@ class PlayState extends FlxState
 		}
 	}
 
-	private function colPlayerPowerUp():Void
-	{
-		if (FlxG.overlap(player,powerUp) )
-		{
-			player.getPowerUp();
-			powerUp.kill();
-		}
-
-		if (FlxG.overlap(player,powerUp2) )
-		{
-			player.getPowerUp();
-			powerUp2.kill();
-		}
-
-		if (FlxG.overlap(player,powerUp3) )
-		{
-			player.getPowerUp();
-			powerUp3.kill();
-		}
-	}
+	
 
 	public function contadorPuntaje()
 	{

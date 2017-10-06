@@ -13,11 +13,11 @@ import flixel.FlxG;
 class NormalEnemy extends Enemy
 {
 	public var xOriginal:Float;
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+	private var eneBullets:FlxTypedGroup<Shot>;
+	public function new(pU:FlxTypedGroup<PowerUp>,eB:FlxTypedGroup<Shot>,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
-		super(X, Y, SimpleGraphic);
-
-		//makeGraphic(4, 4, FlxColor.WHITE);
+		super(pU,X, Y, SimpleGraphic);
+		eneBullets = eB;
 		loadGraphic(AssetPaths.Enemigo1__png, true, 20, 26);
 		scale.set(0.7, 0.7);
 		xOriginal = X;
@@ -30,6 +30,7 @@ class NormalEnemy extends Enemy
 		super.update(elapsed);
 		movement();
 		shoot(elapsed);
+		
 	}
 
 	private function movement()

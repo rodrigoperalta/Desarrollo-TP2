@@ -1,5 +1,5 @@
 package entities;
-
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
@@ -18,9 +18,9 @@ class EnemyMove extends Enemy
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+	public function new(pU:FlxTypedGroup<PowerUp>,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
-		super(X, Y, SimpleGraphic);
+		super(pU,X, Y, SimpleGraphic);
 		loadGraphic(AssetPaths.Enemigo1__png, true, 20, 26);
 		animation.add("EnemyMove", [2], 1, false);
 		scale.set(0.7, 0.7);
@@ -35,6 +35,7 @@ class EnemyMove extends Enemy
 		_brain.update();
 		super.update(elapsed);
 		animation.play("EnemyMove");
+		
 	}
 
 	public function idle():Void

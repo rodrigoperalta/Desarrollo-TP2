@@ -136,7 +136,10 @@ class Player extends FlxSprite
 	
 	public function resetPlayer(x:Float,y:Float):Void
 	{
-		this.reset(x,y);
+		this.reset(x, y);
+		double = false;
+		missile = false;
+		powerUp = 0;
 	}
 
 	public function getPowerUp():Void

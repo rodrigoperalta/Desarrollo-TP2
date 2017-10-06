@@ -1,12 +1,13 @@
 package entities;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-
+import flixel.group.FlxGroup.FlxTypedGroup;
 /**
  * ...
  * @author ...
  */
-class Boss extends Enemy 
+class Boss extends FlxSprite
 {
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -21,11 +22,11 @@ class Boss extends Enemy
 	{
 		super.update(elapsed);
 		animation.play("Normal");
-		shoot(elapsed);
+		//shoot(elapsed);
 
 	}
 	
-	private function shoot(elapsed:Float):Void
+	/*private function shoot(elapsed:Float):Void
 	{
 		timer += 1*elapsed;
 		if (timer>1)
@@ -38,6 +39,6 @@ class Boss extends Enemy
 			timer = 0;
 
 		}
-	}
+	}*/
 	
 }

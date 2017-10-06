@@ -1,5 +1,5 @@
 package entities;
-
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -10,19 +10,43 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Enemy extends FlxSprite
 {
-	public var eneBullets(get, null):FlxTypedGroup<Shot>;
+	
 	private var timer:Float;
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+	private var timerPU:Int;
+	private var powerUps:FlxTypedGroup < PowerUp>;
+	public function new(pU:FlxTypedGroup<PowerUp>,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		eneBullets = new FlxTypedGroup<Shot>();
+		powerUps = pU;
 		timer = 0;
+		timerPU = 0;
 
 	}
 	
-	public function get_eneBullets():FlxTypedGroup<Shot> 
+	override public function update(elapsed:Float):Void
 	{
-		return eneBullets;
+		super.update(elapsed);
+		timerPU += 1;
+		trace(timerPU);
+		if (timerPU>50)
+		timerPU = 0;
 	}
+	
+	public function dropPowerUp():Void
+	{
+		
+		if (timerPU % 5 == 0) 
+		{
+			var powerUp = new PowerUp(this.x, this.y);
+			powerUps.add(powerUp);
+			FlxG.state.add(powerUps);
+			
+			
+		}
+		
+	}
+	
+	
+	
 
 }

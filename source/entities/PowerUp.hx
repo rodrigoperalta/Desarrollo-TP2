@@ -13,7 +13,7 @@ class PowerUp extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(5, 5);
+		loadGraphic(AssetPaths.PowerUp__png, true, 22, 14);
 
 	}
 
@@ -29,8 +29,6 @@ class PowerUp extends FlxSprite
 		{
 			Reg.velPlayer += 150;
 		}
-		
-
 	}
 
 }
