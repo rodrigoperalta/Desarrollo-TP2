@@ -10,7 +10,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Enemy extends FlxSprite
 {
-	private var eneBullets:FlxTypedGroup<Shot>;
+	public var eneBullets(get, null):FlxTypedGroup<Shot>;
 	private var timer:Float;
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -18,6 +18,11 @@ class Enemy extends FlxSprite
 		eneBullets = new FlxTypedGroup<Shot>();
 		timer = 0;
 
+	}
+	
+	public function get_eneBullets():FlxTypedGroup<Shot> 
+	{
+		return eneBullets;
 	}
 
 }

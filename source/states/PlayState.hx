@@ -1,5 +1,6 @@
 package states;
 
+import entities.Boss;
 import entities.Guide;
 import entities.NormalEnemy;
 import entities.PowerUp;
@@ -31,7 +32,7 @@ class PlayState extends FlxState
 	private var powerUp2:PowerUp;
 	private var powerUp3:PowerUp;
 	private var enemies:FlxTypedGroup<Enemy>;
-		private var enemiesMove:FlxTypedGroup<EnemyMove>;
+	private var enemiesMove:FlxTypedGroup<EnemyMove>;
 	private var score:FlxText;
 	private var puntos:Int = 0;
 	private var lifes:FlxText;
@@ -86,6 +87,9 @@ class PlayState extends FlxState
 		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
+		FlxG.collide(enemies, player, colPlayerEnemies);
+		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);
+		//FlxG.collide(, player, colPlayerEnemiesMove);
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
@@ -137,6 +141,13 @@ class PlayState extends FlxState
 				eneMove.y = y;
 				enemiesMove.add(eneMove);
 				add(enemiesMove);
+
+			case "Boss":
+				var boss = new Boss();
+				boss.x = x;
+				boss.y = y;
+				add(boss);
+
 		}
 	}
 
@@ -153,11 +164,39 @@ class PlayState extends FlxState
 		}
 	}
 
-	//private function colNormalEnemyMap()
-	//{
-	//if (FlxG.collide(tileMap, enemies))
-	//enemies.kill();
-	//}
+	private function colPlayerEnemies(e:Enemy, p:Player):Void
+	{
+		enemies.remove(e, true);
+		player.kill();
+		player.lose_Life();
+		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		contadorVidas();		
+	}
+	
+	
+	/*private function colPlayerBullets(b:Shot, p:Player):Void
+	{
+		enemies.remove(b, true);
+		player.kill();
+		player.lose_Life();
+		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		contadorVidas();		
+	}*/
+	
+	private function colPlayerEnemiesMove(e:EnemyMove, p:Player):Void
+	{
+		enemiesMove.remove(e, true);
+		player.kill();
+		player.lose_Life();
+		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		contadorVidas();		
+	}
+
+	/*private function colNormalEnemyMap()
+	{
+	if (FlxG.collide(tileMap, enemies))
+	enemies.kill();
+	}*/
 
 	private function colEnemybullet(e:Enemy,s:Shot):Void
 	{
@@ -165,14 +204,14 @@ class PlayState extends FlxState
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
-	
+
 	private function colEnemyMovebullet(e:EnemyMove,s:Shot):Void
 	{
 		enemiesMove.remove(e, true);
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
-	
+
 	private function colStaticEnemyBulletplayer(p:Player,s:Shot):Void
 	{
 
