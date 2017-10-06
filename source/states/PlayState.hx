@@ -55,7 +55,7 @@ class PlayState extends FlxState
 		guide = new Guide(FlxG.width / 2, FlxG.height / 2);
 		guide.velocity.x = Reg.velCamera;
 		backGround = new FlxBackdrop(AssetPaths.fondo__png);
-		score = new FlxText(50, 220, 0, "SCORE", 8);
+		score = new FlxText(35, 220, 0, "SCORE", 8);
 		score.scrollFactor.x = 0;
 		score.scrollFactor.y = 0;
 		lifes = new FlxText(2, 220, 0, "LIFE", 8);
