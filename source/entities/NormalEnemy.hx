@@ -17,11 +17,13 @@ class NormalEnemy extends Enemy
 	{
 		super(X, Y, SimpleGraphic);
 		
+	
 		//makeGraphic(4, 4, FlxColor.WHITE);
 		loadGraphic(AssetPaths.Enemigo1__png, true, 20, 26);
 		scale.set(0.7, 0.7);
 		xOriginal = X;
 		velocity.x = Reg.velEnemy;
+		updateHitbox();
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -38,4 +40,6 @@ class NormalEnemy extends Enemy
 			y = y + 30;
 		}
 	}
+	
+	
 }
