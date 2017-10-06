@@ -61,9 +61,7 @@ class PlayState extends FlxState
 		lifes.scrollFactor.y = 0;
 		add(backGround);
 		FlxG.camera.follow(guide);
-		tileMap.setTileProperties(0, FlxObject.NONE);
-		tileMap.setTileProperties(1, FlxObject.ANY);
-
+		checkTileCol();
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
 
 		add(tileMap);
@@ -87,9 +85,8 @@ class PlayState extends FlxState
 		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
-		FlxG.collide(enemies, player, colPlayerEnemies);
-		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);
-		//FlxG.collide(, player, colPlayerEnemiesMove);
+		//FlxG.collide(enemies, player, colPlayerEnemies);
+		//FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
@@ -170,26 +167,25 @@ class PlayState extends FlxState
 		player.kill();
 		player.lose_Life();
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
-		contadorVidas();		
+		contadorVidas();
 	}
-	
-	
+
 	/*private function colPlayerBullets(b:Shot, p:Player):Void
 	{
 		enemies.remove(b, true);
 		player.kill();
 		player.lose_Life();
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
-		contadorVidas();		
+		contadorVidas();
 	}*/
-	
+
 	private function colPlayerEnemiesMove(e:EnemyMove, p:Player):Void
 	{
 		enemiesMove.remove(e, true);
 		player.kill();
 		player.lose_Life();
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
-		contadorVidas();		
+		contadorVidas();
 	}
 
 	/*private function colNormalEnemyMap()
@@ -264,5 +260,215 @@ class PlayState extends FlxState
 	public function scorePantalla()
 	{
 		score.text = "SCORE " + puntos;
+	}
+	
+	public function checkTileCol()
+	{
+		tileMap.setTileProperties(0, FlxObject.NONE);
+		for (i in 1...23)
+		{
+			tileMap.setTileProperties(i, FlxObject.ANY);
+		}
+		for (j in 24...39)
+		{
+			tileMap.setTileProperties(j, FlxObject.NONE);
+		}
+		for (k in 40...43)
+		{
+			tileMap.setTileProperties(k, FlxObject.ANY);
+		}
+		for (l in 44...59)
+		{
+			tileMap.setTileProperties(l, FlxObject.NONE);
+		}
+		for (m in 60...79)
+		{
+			tileMap.setTileProperties(m, FlxObject.ANY);
+		}
+		for (n in 80...87)
+		{
+			tileMap.setTileProperties(n, FlxObject.NONE);
+		}
+		for (o in 88...95)
+		{
+			tileMap.setTileProperties(o, FlxObject.ANY);
+		}
+		for (p in 96...99)
+		{
+			tileMap.setTileProperties(p, FlxObject.NONE);
+		}
+		for (q in 100...104)
+		{
+			tileMap.setTileProperties(q, FlxObject.NONE);
+		}
+		for (r in 105...106)
+		{
+			tileMap.setTileProperties(r, FlxObject.ANY);
+		}
+		for (s in 107...108)
+		{
+			tileMap.setTileProperties(s, FlxObject.NONE);
+		}
+		for (t in 109...110)
+		{
+			tileMap.setTileProperties(t, FlxObject.ANY);
+		}
+		tileMap.setTileProperties(111, FlxObject.NONE);
+		for (u in 112...115)
+		{
+			tileMap.setTileProperties(u, FlxObject.ANY);
+
+		}
+		tileMap.setTileProperties(116, FlxObject.NONE);
+		for (v in 117...118)
+		{
+			tileMap.setTileProperties(v, FlxObject.ANY);
+		}
+		for (w in 119...120)
+		{
+			tileMap.setTileProperties(w, FlxObject.NONE);
+		}
+		for (x in 121...122)
+		{
+			tileMap.setTileProperties(x, FlxObject.ANY);
+		}
+		for (y in 123...124)
+		{
+			tileMap.setTileProperties(y, FlxObject.NONE);
+		}
+		for (z in 125...127)
+		{
+			tileMap.setTileProperties(z, FlxObject.ANY);
+		}
+		for (i in 128...129)
+		{
+			tileMap.setTileProperties(i, FlxObject.NONE);
+		}
+		tileMap.setTileProperties(130, FlxObject.ANY);
+		for (j in 131...132)
+		{
+			tileMap.setTileProperties(j, FlxObject.NONE);
+		}
+		for (k in 133...134)
+		{
+			tileMap.setTileProperties(k, FlxObject.ANY);
+		}
+		for (l in 135...139)
+		{
+			tileMap.setTileProperties(l, FlxObject.NONE);
+		}
+		for (m in 140...147)
+		{
+			tileMap.setTileProperties(m, FlxObject.ANY);
+		}
+		for (n in 148...155)
+		{
+			tileMap.setTileProperties(n, FlxObject.NONE);
+		}
+		for (o in 156...159)
+		{
+			tileMap.setTileProperties(o, FlxObject.ANY);
+		}
+		for (p in 160...167)
+		{
+			tileMap.setTileProperties(p, FlxObject.NONE);
+		}
+		for (q in 168...179)
+		{
+			tileMap.setTileProperties(q, FlxObject.ANY);
+		}
+		for (r in 180...184)
+		{
+			tileMap.setTileProperties(r, FlxObject.NONE);
+		}
+		for (s in 185...186)
+		{
+			tileMap.setTileProperties(s, FlxObject.ANY);
+		}
+		for (t in 187...188)
+		{
+			tileMap.setTileProperties(t, FlxObject.NONE);
+		}
+		for (u in 189...190)
+		{
+			tileMap.setTileProperties(u, FlxObject.ANY);
+		}
+		for (v in 191...192)
+		{
+			tileMap.setTileProperties(v, FlxObject.NONE);
+		}
+		for (w in 193...194)
+		{
+			tileMap.setTileProperties(w, FlxObject.ANY);
+		}
+		for (x in 195...200)
+		{
+			tileMap.setTileProperties(x, FlxObject.NONE);
+		}
+		for (y in 201...202)
+		{
+			tileMap.setTileProperties(y, FlxObject.ANY);
+		}
+		for (z in 203...204)
+		{
+			tileMap.setTileProperties(z, FlxObject.NONE);
+		}
+		for (i in 205...206)
+		{
+			tileMap.setTileProperties(i, FlxObject.ANY);
+		}
+		for (j in 207...212)
+		{
+			tileMap.setTileProperties(j, FlxObject.NONE);
+		}
+		for (k in 213...214)
+		{
+			tileMap.setTileProperties(k, FlxObject.ANY);
+		}
+		for (l in 215...216)
+		{
+			tileMap.setTileProperties(l, FlxObject.NONE);
+		}
+		for (m in 217...218)
+		{
+			tileMap.setTileProperties(m, FlxObject.ANY);
+		}
+		tileMap.setTileProperties(219, FlxObject.NONE);
+		for (n in 219...227)
+		{
+			tileMap.setTileProperties(n, FlxObject.ANY);
+		}
+		for (o in 228...243)
+		{
+			tileMap.setTileProperties(o, FlxObject.NONE);
+		}
+		for (p in 244...247)
+		{
+			tileMap.setTileProperties(p, FlxObject.ANY);
+		}
+		for (q in 248...261)
+		{
+			tileMap.setTileProperties(q, FlxObject.NONE);
+		}
+
+		tileMap.setTileProperties(262, FlxObject.ANY);
+		for (r in 263...285)
+		{
+			tileMap.setTileProperties(r, FlxObject.NONE);
+		}
+		tileMap.setTileProperties(286, FlxObject.ANY);
+		for (s in 286...299)
+		{
+			tileMap.setTileProperties(s, FlxObject.NONE);
+		}
+		for (t in 300...303)
+		{
+			tileMap.setTileProperties(t, FlxObject.ANY);
+		}
+		for (u in 304...400)
+		{
+			tileMap.setTileProperties(u, FlxObject.NONE);
+		}
+
 	}
 }
