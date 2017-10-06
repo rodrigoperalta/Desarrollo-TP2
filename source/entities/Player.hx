@@ -17,7 +17,7 @@ class Player extends FlxSprite
 
 	private var bullets(get, null):FlxTypedGroup<Shot>;
 	private var vidas(get, null):Int;
-	private var powerUp:Int;
+	private var powerUp(get, null):Int;
 	private var pU:PowerUp;
 	private var double:Bool;
 	private var missile:Bool;
@@ -35,6 +35,8 @@ class Player extends FlxSprite
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);
 		animation.add("straight", [0], 1, false);
+		
+		
 		animation.play("straight");
 		bullets = new FlxTypedGroup<Shot>();
 		scale.set(0.7, 0.7);
@@ -56,6 +58,7 @@ class Player extends FlxSprite
 		//trace(powerUp);
 
 	}
+	
 
 	private function movement():Void
 	{
@@ -203,6 +206,11 @@ class Player extends FlxSprite
 	public function get_bullets():FlxTypedGroup<Shot>
 	{
 		return bullets;
+	}
+	
+	public function get_powerUp():Int 
+	{
+		return powerUp;
 	}
 
 	

@@ -27,7 +27,6 @@ class Enemy extends FlxSprite
 	{
 		super.update(elapsed);
 		timerPU += 1;
-		trace(timerPU);
 		if (timerPU>50)
 		timerPU = 0;
 	}

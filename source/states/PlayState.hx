@@ -81,7 +81,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		Reg.limiteX += Reg.velCamera * elapsed;
-		
+		gui.doPowerUp(player.get_powerUp());
 		colPlayerTileMap();
 		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
@@ -96,6 +96,8 @@ class PlayState extends FlxState
 		bossBattle();
 		FlxG.collide(powerUps, player, colPlayerPowerUps);
 	}
+	
+	
 	
 	private function colShotEnemPlayer()
 	{
