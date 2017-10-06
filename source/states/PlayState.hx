@@ -84,7 +84,8 @@ class PlayState extends FlxState
 		colPlayerPowerUp();
 		colPlayerTileMap();
 		checkLose();
-		FlxG.collide(enemies, player.get_bullets(), colStaticEnemybullet);
+		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
+		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
@@ -158,12 +159,20 @@ class PlayState extends FlxState
 	//enemies.kill();
 	//}
 
-	private function colStaticEnemybullet(e:Enemy,s:Shot):Void
+	private function colEnemybullet(e:Enemy,s:Shot):Void
 	{
 		enemies.remove(e, true);
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
+	
+	private function colEnemyMovebullet(e:EnemyMove,s:Shot):Void
+	{
+		enemiesMove.remove(e, true);
+		player.get_bullets().remove(s, true);
+		contadorPuntaje();
+	}
+	
 	private function colStaticEnemyBulletplayer(p:Player,s:Shot):Void
 	{
 

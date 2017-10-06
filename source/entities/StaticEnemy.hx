@@ -11,16 +11,15 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 class StaticEnemy extends Enemy
 {
 
-	private var eneBullets(get, null):FlxTypedGroup<Shot>;
-	private var timer:Float;
+	
+	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
-		super(X, Y, SimpleGraphic);
-		timer = 0;
+		super(X, Y, SimpleGraphic);	
 		loadGraphic(AssetPaths.Enemigo2__png, true, 26, 18);
 		animation.add("Ceiling", [0], 1, false);
 		animation.add("Floor", [1], 1, false);
-		eneBullets = new FlxTypedGroup<Shot>();
+	
 
 	}
 
@@ -70,9 +69,5 @@ class StaticEnemy extends Enemy
 		}
 	}
 	
-	public function get_eneBullets():FlxTypedGroup<Shot> 
-	{
-		return eneBullets;
-	}
 
 }

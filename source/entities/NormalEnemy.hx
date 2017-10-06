@@ -10,14 +10,13 @@ import flixel.FlxG;
  * ...
  * @author ...
  */
-class NormalEnemy extends Enemy 
-{	
+class NormalEnemy extends Enemy
+{
 	public var xOriginal:Float;
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		
-	
+
 		//makeGraphic(4, 4, FlxColor.WHITE);
 		loadGraphic(AssetPaths.Enemigo1__png, true, 20, 26);
 		scale.set(0.7, 0.7);
@@ -25,21 +24,36 @@ class NormalEnemy extends Enemy
 		velocity.x = Reg.velEnemy;
 		updateHitbox();
 	}
-	
+
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		movement();
+		shoot(elapsed);
 	}
-	
+
 	private function movement()
 	{
-		if (x < xOriginal) 
+		if (x < xOriginal)
 		{
 			velocity.x = -velocity.x;
 			y = y + 30;
 		}
 	}
-	
-	
+
+	private function shoot(elapsed:Float):Void
+	{
+		timer += 1*elapsed;
+		if (timer>1)
+		{
+
+			var bullet = new Shot(this.x+this.width/2, this.y+this.height/2);
+			eneBullets.add(bullet);
+			FlxG.state.add(eneBullets);
+			bullet.velocity.x = -Reg.velBullet;
+			timer = 0;
+
+		}
+	}
+
 }
