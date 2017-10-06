@@ -26,19 +26,6 @@ class Boss extends FlxSprite
 
 	}
 	
-	/*private function shoot(elapsed:Float):Void
-	{
-		timer += 1*elapsed;
-		if (timer>1)
-		{
-
-			var bullet = new Shot(this.x+this.width/2, this.y+this.height/2);
-			eneBullets.add(bullet);
-			FlxG.state.add(eneBullets);
-			bullet.velocity.x = -Reg.velBullet;
-			timer = 0;
-
-		}
-	}*/
+	
 	
 }
