@@ -1,6 +1,7 @@
 package states;
 
 import entities.Boss;
+import entities.BossShot;
 import entities.Guide;
 import entities.Interface;
 import entities.NormalEnemy;
@@ -25,6 +26,7 @@ import entities.EnemyMove;
 class PlayState extends FlxState
 {
 	private var eneBullets:FlxTypedGroup<Shot>;
+	private var bossBullets:FlxTypedGroup<BossShot>;
 	private var powerUps:FlxTypedGroup <PowerUp>;
 	private var player:Player;
 	private var guide:Guide;
@@ -36,8 +38,8 @@ class PlayState extends FlxState
 	private var score:FlxText;
 	private var puntos:Int = 0;
 	private var lifes:FlxText;
-	private var puntosVidas:Int = 3;
-	private var boss = new Boss();
+	private var puntosVidas:Int = 6;
+	private var boss:Boss;
 	private var gui:Interface;
 	
 
@@ -47,9 +49,11 @@ class PlayState extends FlxState
 
 		FlxG.mouse.visible = false;
 		eneBullets = new FlxTypedGroup<Shot>();
+		bossBullets = new FlxTypedGroup<BossShot>();
 		enemies = new FlxTypedGroup<Enemy>();
 		enemiesMove = new FlxTypedGroup<EnemyMove>();
 		powerUps = new FlxTypedGroup<PowerUp>();
+		boss = new Boss(bossBullets);
 		loader = new FlxOgmoLoader(AssetPaths.gradius__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 18, 18, "Tiles");
 		guide = new Guide(FlxG.width / 2, FlxG.height / 2);
@@ -88,22 +92,22 @@ class PlayState extends FlxState
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
 		FlxG.collide(enemies, player, colPlayerEnemies);
 		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);		
-		FlxG.collide(eneBullets , player, colPlayerBullets);		
+		FlxG.collide(eneBullets , player, colPlayerBullets);	
+		FlxG.collide(bossBullets , player, colPlayerBossBullets);	
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
 		enemiesMove.forEachAlive(checkEnemyVision);
 		bossBattle();
 		FlxG.collide(powerUps, player, colPlayerPowerUps);
+		FlxG.collide(boss, player.get_bullets(), colBossbullet);
+		FlxG.collide(boss, player, colPlayerBoss);
+	
 	}
 	
 	
 	
-	private function colShotEnemPlayer()
-	{
-		
-		
-	}
+
 
 	private function checkEnemyVision(e:EnemyMove):Void
 	{
@@ -152,11 +156,10 @@ class PlayState extends FlxState
 				add(enemiesMove);
 
 			case "Boss":
-				//var boss = new Boss();
+				//var boss = new Boss(bossBullets);
 				boss.x = x;
 				boss.y = y;
 				add(boss);
-
 		}
 	}
 
@@ -169,7 +172,6 @@ class PlayState extends FlxState
 			player.lose_Life();
 			player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
 			contadorVidas();
-
 		}
 	}
 
@@ -182,9 +184,26 @@ class PlayState extends FlxState
 		contadorVidas();
 	}
 	
+	private function colPlayerBoss(b:Boss, p:Player):Void
+	{
+		player.kill();
+		player.lose_Life();
+		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		contadorVidas();
+	}
+	
 	private function colPlayerBullets(b:Shot, p:Player):Void 
 	{
 		eneBullets.remove(b, true);
+		player.kill();
+		player.lose_Life();
+		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		contadorVidas();
+	}
+	
+	private function colPlayerBossBullets(b:BossShot, p:Player):Void 
+	{
+		bossBullets.remove(b, true);
 		player.kill();
 		player.lose_Life();
 		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
@@ -207,13 +226,23 @@ class PlayState extends FlxState
 		
 	}
 
-
 	private function colEnemybullet(e:Enemy,s:Shot):Void
 	{
 		e.dropPowerUp();
 		enemies.remove(e, true);
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
+	}
+	
+	private function colBossbullet(b:Boss,s:Shot):Void
+	{
+		b.lossLife();
+		player.get_bullets().remove(s, true);
+		if (boss.get_vidas()==0) 
+		{
+			contadorPuntaje();
+			boss.kill();
+		}
 	}
 
 	private function colEnemyMovebullet(e:EnemyMove,s:Shot):Void
@@ -222,19 +251,15 @@ class PlayState extends FlxState
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
-
-	
 	
 	private function checkLose():Void
 	{
 		if (player.get_vidas()<0)
 		{
-
+			Reg.limiteX = 0;
 			FlxG.switchState(new LoseState());
 		}
 	}
-
-	
 
 	public function contadorPuntaje()
 	{
@@ -259,8 +284,8 @@ class PlayState extends FlxState
 	{
 		if (FlxG.overlap(guide, boss))
 		{	
-			guide.velocity.x = 0;
-			player.velocity.x = 0;
+			guide.velocity.x = 0;			
+			player.verificador();
 		}
 	}
 	

@@ -30,7 +30,7 @@ class NormalEnemy extends Enemy
 		super.update(elapsed);
 		movement();
 		shoot(elapsed);
-		
+		timer++;
 	}
 
 	private function movement()
@@ -44,16 +44,13 @@ class NormalEnemy extends Enemy
 
 	private function shoot(elapsed:Float):Void
 	{
-		timer += 1*elapsed;
-		if (timer>1)
+		if ((FlxG.camera.scroll.x + FlxG.camera.width) > this.x && timer>80)
 		{
-
 			var bullet = new Shot(this.x+this.width/2, this.y+this.height/2);
 			eneBullets.add(bullet);
 			FlxG.state.add(eneBullets);
 			bullet.velocity.x = -Reg.velBullet;
 			timer = 0;
-
 		}
 	}
 

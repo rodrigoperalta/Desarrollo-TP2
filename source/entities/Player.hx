@@ -21,7 +21,7 @@ class Player extends FlxSprite
 	private var pU:PowerUp;
 	private var double:Bool;
 	private var missile:Bool;
-	
+	private var verif:Bool;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -30,7 +30,8 @@ class Player extends FlxSprite
 		pU = new PowerUp();
 		double = false;
 		missile = false;
-		vidas = 3;
+		verif = false;
+		vidas = 1000;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);
@@ -50,16 +51,24 @@ class Player extends FlxSprite
 	{
 
 		super.update(elapsed);
-		velocity.set(Reg.velCamera, 0);
+		if(!verif)
+			velocity.set(Reg.velCamera, 0);
+		else
+			velocity.set(0, 0);
 		movement();
 		shoot();
 		aniMov();
 		activatePowerUp();
-		//trace(powerUp);
+		
 
 	}
 	
-
+	public function verificador()
+	{
+		verif = true;
+	}
+	
+	
 	private function movement():Void
 	{
 
@@ -97,7 +106,14 @@ class Player extends FlxSprite
 			}
 
 		}
+		
+		if (FlxG.keys.justPressed.P)
+		{
+			vidas = 1000;
+			//guide.velocity.x = 500;
+			//velocity.x = 500;
 
+		}
 	}
 
 	private function shoot():Void

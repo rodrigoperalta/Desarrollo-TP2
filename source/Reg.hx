@@ -7,7 +7,7 @@ package;
 class Reg 
 {
 
-	static inline public var velCamera = 80;
+	static inline public var velCamera = 300;
 	static public var limiteX:Float = 0;
 	static public var velBullet:Float = 300;
 	static public var velPlayer:Float = 150;
