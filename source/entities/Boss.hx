@@ -12,7 +12,7 @@ class Boss extends FlxSprite
 {
 	private var velocidad:FlxMath;
 	private var timer:Float;
-	private var vidas(get, null):Int;
+	public var vidas(get, null):Int;
 	private var bossBullets:FlxTypedGroup<BossShot>;
 
 	public function new(bB:FlxTypedGroup<BossShot>,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)

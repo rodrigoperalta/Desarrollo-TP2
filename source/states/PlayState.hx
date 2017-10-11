@@ -1,6 +1,7 @@
 package states;
 
 import entities.Boss;
+import entities.BossInterface;
 import entities.BossShot;
 import entities.Guide;
 import entities.Interface;
@@ -41,6 +42,7 @@ class PlayState extends FlxState
 	private var puntosVidas:Int = 6;
 	private var boss:Boss;
 	private var gui:Interface;
+	private var bossGui:BossInterface;
 	
 
 	override public function create():Void
@@ -63,7 +65,8 @@ class PlayState extends FlxState
 		score.scrollFactor.x = 0;
 		score.scrollFactor.y = 0;
 		lifes = new FlxText(2, 220, 0, "LIFE", 8);
-		gui = new Interface(60,215);
+		gui = new Interface(60, 215);
+		//bossGui = new BossInterface(1, 1); falta la posicion
 		lifes.scrollFactor.x = 0;
 		lifes.scrollFactor.y = 0;
 		add(backGround);
