@@ -29,7 +29,7 @@ class WinState extends FlxState
 		add(highscore);
 		
 		
-		FlxG.sound.play(AssetPaths.menu__ogg, true);
+		FlxG.sound.play(AssetPaths.menu__ogg, 1,true);
 	}
 	
 	private function menu()

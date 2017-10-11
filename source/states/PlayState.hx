@@ -80,7 +80,7 @@ class PlayState extends FlxState
 		add(score);
 		add(lifes);
 		
-		FlxG.sound.play(AssetPaths.level__ogg, true);
+		FlxG.sound.play(AssetPaths.level__ogg, 1, true);
 		
 		loader.loadEntities(entityCreator, "Entities");
 		
