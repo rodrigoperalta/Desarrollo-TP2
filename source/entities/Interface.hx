@@ -21,6 +21,7 @@ class Interface extends FlxSprite
 		animation.add("Missile", [4], 1, false);
 		animation.add("Double", [3], 1, false);
 		animation.add("Option", [2], 1, false);
+		animation.add("Shield", [1], 1, false);
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -56,6 +57,10 @@ class Interface extends FlxSprite
 		if (powerUp == 4)
 		{
 			animation.play("Option");
+		}
+		if (powerUp == 5)
+		{
+			animation.play("Shield");
 		}
 	}
 	

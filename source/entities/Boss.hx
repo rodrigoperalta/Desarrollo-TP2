@@ -47,7 +47,7 @@ class Boss extends FlxSprite
 	public function lossLife()
 	{
 
-		vidas--;
+		vidas-=1;
 
 	}
 

@@ -117,6 +117,7 @@ class PlayState extends FlxState
 		FlxG.collide(powerUps, player, colPlayerPowerUps);
 		FlxG.collide(boss, player.get_bullets(), colBossbullet);
 		FlxG.collide(boss, player, colPlayerBoss);
+		player.getguide(guide);
 	
 	}
 	
@@ -143,7 +144,7 @@ class PlayState extends FlxState
 		switch (entityName)
 		{
 			case "Player":
-				player = new Player();
+				player = new Player(guide);
 
 				player.x = x;
 				player.y = y;
@@ -183,9 +184,9 @@ class PlayState extends FlxState
 
 		if (FlxG.collide(tileMap, player))
 		{
-			player.kill();
+			player.die();
 			player.lose_Life();
-			player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+			
 			contadorVidas();
 		}
 	}
@@ -193,44 +194,44 @@ class PlayState extends FlxState
 	private function colPlayerEnemies(e:Enemy, p:Player):Void
 	{
 		enemies.remove(e, true);
-		player.kill();
+		player.die();
 		player.lose_Life();
-		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		
 		contadorVidas();
 	}
 	
 	private function colPlayerBoss(b:Boss, p:Player):Void
 	{
-		player.kill();
+		player.die();
 		player.lose_Life();
-		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		
 		contadorVidas();
 	}
 	
 	private function colPlayerBullets(b:Shot, p:Player):Void 
 	{
 		eneBullets.remove(b, true);
-		player.kill();
+		player.die();
 		player.lose_Life();
-		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		
 		contadorVidas();
 	}
 	
 	private function colPlayerBossBullets(b:BossShot, p:Player):Void 
 	{
 		bossBullets.remove(b, true);
-		player.kill();
+		player.die();
 		player.lose_Life();
-		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		
 		contadorVidas();
 	}
 
 	private function colPlayerEnemiesMove(e:EnemyMove, p:Player):Void
 	{
 		enemiesMove.remove(e, true);
-		player.kill();
+		player.die();
 		player.lose_Life();
-		player.resetPlayer(guide.x - (FlxG.width / 2) + player.width / 2, FlxG.height / 2);
+		
 		contadorVidas();
 	}
 	

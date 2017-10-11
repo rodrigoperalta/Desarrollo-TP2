@@ -13,9 +13,9 @@ class Option extends Player
 {
 	private var player:Player;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, _player:Player) 
+	public function new(g:Guide,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, _player:Player) 
 	{
-		super(X, Y, SimpleGraphic);
+		super(g,X, Y, SimpleGraphic);
 		
 		player = _player;
 		
