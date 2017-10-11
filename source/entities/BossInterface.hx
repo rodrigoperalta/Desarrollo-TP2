@@ -1,5 +1,5 @@
 package entities;
-
+import entities.Boss;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
@@ -9,9 +9,10 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class BossInterface extends FlxSprite
 {
-
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+	private var boss:Boss;
+	public function new(b:Boss, ?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
+		boss = b;
 		super(X, Y, SimpleGraphic);
 		loadGraphic(AssetPaths.BossLife__png, true, 240, 27);//falta la posicion
 		scale.set(0.7, 0.7);
@@ -30,32 +31,33 @@ class BossInterface extends FlxSprite
 		velocity.set(Reg.velCamera, 0);
 	}
 
-	/*public function BarraDelBoss():Void
+	public function BarraDelBoss():Void
 	{
-		if (Boss.get_vidas()== 50)
+		
+		if (boss.get_vidas()== 50)
 		{
 			animation.play("vidallena");
 		}
-		if (Boss.get_vidas() == 40)
+		if (boss.get_vidas() == 40)
 		{
 			animation.play("vida--");
 		}
-		if (Boss.get_vidas() == 30)
+		if (boss.get_vidas() == 30)
 		{
 			animation.play("vida-2");
 		}
-		if (Boss.get_vidas()== 20)
+		if (boss.get_vidas()== 20)
 		{
 			animation.play("vida-3");
 		}
-		if (Boss.get_vidas()== 10)
+		if (boss.get_vidas()== 10)
 		{
 			animation.play("vida-4");
 		}
-		if (Boss.get_vidas() == 0)
+		if (boss.get_vidas() == 0)
 		{
 			animation.play("chile");
 		}
-	}*/
+	}
 
 }

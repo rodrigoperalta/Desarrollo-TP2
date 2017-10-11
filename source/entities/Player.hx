@@ -37,7 +37,7 @@ class Player extends FlxSprite
 		double = false;
 		missile = false;
 		verif = false;
-		vidas = 6;
+		vidas = 10006;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);
@@ -51,7 +51,7 @@ class Player extends FlxSprite
 		updateHitbox();
 		height = height / 2;
 		offset.y = height;
-		powerUp = 0;
+		powerUp = 4;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -205,7 +205,7 @@ class Player extends FlxSprite
 				missile = true;
 			}
 			
-			if (powerUp == 1)
+			if (powerUp == 4)
 			{
 				if (optionNum1 && !optionNum2)
                 {

@@ -66,7 +66,7 @@ class PlayState extends FlxState
 		score.scrollFactor.y = 0;
 		lifes = new FlxText(2, 220, 0, "LIFE", 8);
 		gui = new Interface(60, 215);
-		//bossGui = new BossInterface(1, 1); falta la posicion
+		bossGui = new BossInterface(boss,60, 215); //falta la posicion
 		lifes.scrollFactor.x = 0;
 		lifes.scrollFactor.y = 0;
 		add(backGround);
@@ -297,8 +297,10 @@ class PlayState extends FlxState
 	
 	public function bossBattle()
 	{
+	
 		if (FlxG.overlap(guide, boss))
 		{	
+			add(bossGui);
 			guide.velocity.x = 0;			
 			player.verificador();
 		}
