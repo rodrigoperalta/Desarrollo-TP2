@@ -14,7 +14,7 @@ class BossInterface extends FlxSprite
 	{
 		boss = b;
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.BossLife__png, true, 240, 17);//falta la posicion
+		loadGraphic(AssetPaths.BossLifeBar__png, true, 197, 17);//falta la posicion
 		scale.set(0.7, 0.7);
 		animation.add("vidallena", [0], 1, false);
 		animation.add("vida--", [1], 1, false);
@@ -24,13 +24,14 @@ class BossInterface extends FlxSprite
 		animation.add("chile", [5], 1, false);
 		animation.add("none", [6], 1, false);
 		animation.play("none");
+		velocity.set(Reg.velCamera, 0);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 
-		velocity.set(Reg.velCamera, 0);
+		
 	}
 
 	public function BarraDelBoss():Void
@@ -40,19 +41,19 @@ class BossInterface extends FlxSprite
 		{
 			animation.play("vidallena");
 		}
-		if (boss.get_vidas() == 40)
+		if (boss.get_vidas() < 40 && boss.get_vidas() > 30)
 		{
 			animation.play("vida--");
 		}
-		if (boss.get_vidas() == 30)
+		if (boss.get_vidas() <= 30 && boss.get_vidas() > 20)
 		{
 			animation.play("vida-2");
 		}
-		if (boss.get_vidas()== 20)
+		if (boss.get_vidas() <= 20 && boss.get_vidas() > 10)
 		{
 			animation.play("vida-3");
 		}
-		if (boss.get_vidas()== 10)
+		if (boss.get_vidas() <= 10 && boss.get_vidas() > 0)
 		{
 			animation.play("vida-4");
 		}

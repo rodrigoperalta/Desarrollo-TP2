@@ -248,6 +248,10 @@ class PlayState extends FlxState
 		{
 			contadorPuntaje();
 			boss.kill();
+			if (puntos > Reg.highscore) 
+			{
+				Reg.highscore = puntos;
+			}
 			FlxG.switchState(new WinState());
 		}
 	}

@@ -22,13 +22,14 @@ class Interface extends FlxSprite
 		animation.add("Double", [3], 1, false);
 		animation.add("Option", [2], 1, false);
 		animation.add("Shield", [1], 1, false);
+		velocity.set(Reg.velCamera, 0);
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		
-		velocity.set(Reg.velCamera, 0);
+	
 	}
 	
 	public function beIdle():Void
