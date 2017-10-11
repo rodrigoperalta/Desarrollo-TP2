@@ -79,11 +79,11 @@ class PlayState extends FlxState
 		add(gui);
 		add(score);
 		add(lifes);
-
+		
 		FlxG.sound.play(AssetPaths.level__ogg, true);
-
+		
 		loader.loadEntities(entityCreator, "Entities");
-
+		
 	}
 
 	override public function update(elapsed:Float):Void
@@ -118,7 +118,7 @@ class PlayState extends FlxState
 		FlxG.overlap(boss, player.get_bullets(), colBossbullet);
 		FlxG.overlap(boss, player, colPlayerBoss);
 		player.getguide(guide);
-
+		
 	}
 
 	private function checkEnemyVision(e:EnemyMove):Void
@@ -136,37 +136,37 @@ class PlayState extends FlxState
 	{
 		var x:Int = Std.parseInt(entityData.get("x"));
 		var y:Int = Std.parseInt(entityData.get("y"));
-
+		
 		switch (entityName)
 		{
 			case "Player":
 				player = new Player(guide);
-
+				
 				player.x = x;
 				player.y = y;
 				add(player);
-
+				
 			case "FixEnemy":
 				var staticEne = new StaticEnemy(powerUps,eneBullets );
 				staticEne.x = x;
 				staticEne.y = y;
 				enemies.add(staticEne);
 				add(enemies);
-
+				
 			case "Enemy":
 				var normalEne = new NormalEnemy( powerUps,eneBullets);
 				normalEne.x = x;
 				normalEne.y = y;
 				enemies.add(normalEne);
 				add(enemies);
-
+				
 			case "EnemyMove":
 				var eneMove = new EnemyMove(powerUps);
 				eneMove.x = x;
 				eneMove.y = y;
 				enemiesMove.add(eneMove);
 				add(enemiesMove);
-
+				
 			case "Boss":
 				//var boss = new Boss(bossBullets);
 				boss.x = x;
@@ -177,11 +177,11 @@ class PlayState extends FlxState
 
 	private function colPlayerTileMap():Void
 	{
-
+		
 		if (FlxG.collide(tileMap, player))
 		{
 			player.die();
-
+			
 			contadorVidas();
 		}
 	}
@@ -190,14 +190,14 @@ class PlayState extends FlxState
 	{
 		enemies.remove(e, true);
 		player.die();
-
+		
 		contadorVidas();
 	}
 
 	private function colPlayerBoss(b:Boss, p:Player):Void
 	{
 		player.die();
-
+		
 		contadorVidas();
 	}
 
@@ -205,7 +205,7 @@ class PlayState extends FlxState
 	{
 		eneBullets.remove(b, true);
 		player.die();
-
+		
 		contadorVidas();
 	}
 
@@ -213,7 +213,7 @@ class PlayState extends FlxState
 	{
 		bossBullets.remove(b, true);
 		player.die();
-
+		
 		contadorVidas();
 	}
 
@@ -221,7 +221,7 @@ class PlayState extends FlxState
 	{
 		enemiesMove.remove(e, true);
 		player.die();
-
+		
 		contadorVidas();
 	}
 
@@ -229,7 +229,7 @@ class PlayState extends FlxState
 	{
 		powerUps.remove(pU, true);
 		player.getPowerUp();
-
+		
 	}
 
 	private function colEnemybullet(e:Enemy,s:Shot):Void
@@ -248,6 +248,7 @@ class PlayState extends FlxState
 		{
 			contadorPuntaje();
 			boss.kill();
+			FlxG.switchState(new WinState());
 		}
 	}
 
