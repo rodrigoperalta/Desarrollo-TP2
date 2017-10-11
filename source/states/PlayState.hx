@@ -43,7 +43,6 @@ class PlayState extends FlxState
 	private var boss:Boss;
 	private var gui:Interface;
 	private var bossGui:BossInterface;
-	
 
 	override public function create():Void
 	{
@@ -79,9 +78,9 @@ class PlayState extends FlxState
 		add(gui);
 		add(score);
 		add(lifes);
-		
+
 		FlxG.sound.play(AssetPaths.level__ogg, true);
-		
+
 		loader.loadEntities(entityCreator, "Entities");
 
 	}
@@ -99,16 +98,16 @@ class PlayState extends FlxState
 			FlxG.collide(enemies, player.get_Option1().get_bullets(), colEnemybullet);
 			FlxG.collide(enemiesMove, player.get_Option1().get_bullets(), colEnemyMovebullet);
 		}
-		if (player.get_OptionNum2())	
+		if (player.get_OptionNum2())
 		{
 			FlxG.collide(enemies, player.get_Option2().get_bullets(), colEnemybullet);
 			FlxG.collide(enemiesMove, player.get_Option2().get_bullets(), colEnemyMovebullet);
 		}
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
 		FlxG.collide(enemies, player, colPlayerEnemies);
-		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);		
-		FlxG.collide(eneBullets , player, colPlayerBullets);	
-		FlxG.collide(bossBullets , player, colPlayerBossBullets);	
+		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);
+		FlxG.collide(eneBullets, player, colPlayerBullets);
+		FlxG.collide(bossBullets, player, colPlayerBossBullets);
 		scorePantalla();
 		lifePantalla();
 		FlxG.collide(enemies, tileMap);
@@ -118,12 +117,8 @@ class PlayState extends FlxState
 		FlxG.collide(boss, player.get_bullets(), colBossbullet);
 		FlxG.collide(boss, player, colPlayerBoss);
 		player.getguide(guide);
-	
-	}
-	
-	
-	
 
+	}
 
 	private function checkEnemyVision(e:EnemyMove):Void
 	{
@@ -185,8 +180,7 @@ class PlayState extends FlxState
 		if (FlxG.collide(tileMap, player))
 		{
 			player.die();
-			player.lose_Life();
-			
+
 			contadorVidas();
 		}
 	}
@@ -195,34 +189,30 @@ class PlayState extends FlxState
 	{
 		enemies.remove(e, true);
 		player.die();
-		player.lose_Life();
-		
+
 		contadorVidas();
 	}
-	
+
 	private function colPlayerBoss(b:Boss, p:Player):Void
 	{
 		player.die();
-		player.lose_Life();
-		
+
 		contadorVidas();
 	}
-	
-	private function colPlayerBullets(b:Shot, p:Player):Void 
+
+	private function colPlayerBullets(b:Shot, p:Player):Void
 	{
 		eneBullets.remove(b, true);
 		player.die();
-		player.lose_Life();
-		
+
 		contadorVidas();
 	}
-	
-	private function colPlayerBossBullets(b:BossShot, p:Player):Void 
+
+	private function colPlayerBossBullets(b:BossShot, p:Player):Void
 	{
 		bossBullets.remove(b, true);
 		player.die();
-		player.lose_Life();
-		
+
 		contadorVidas();
 	}
 
@@ -230,16 +220,15 @@ class PlayState extends FlxState
 	{
 		enemiesMove.remove(e, true);
 		player.die();
-		player.lose_Life();
-		
+
 		contadorVidas();
 	}
-	
+
 	private function colPlayerPowerUps(pU:PowerUp, p:Player):Void
 	{
 		powerUps.remove(pU, true);
 		player.getPowerUp();
-		
+
 	}
 
 	private function colEnemybullet(e:Enemy,s:Shot):Void
@@ -249,12 +238,12 @@ class PlayState extends FlxState
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
-	
+
 	private function colBossbullet(b:Boss,s:Shot):Void
 	{
 		b.lossLife();
 		player.get_bullets().remove(s, true);
-		if (boss.get_vidas()==0) 
+		if (boss.get_vidas()==0)
 		{
 			contadorPuntaje();
 			boss.kill();
@@ -267,7 +256,7 @@ class PlayState extends FlxState
 		player.get_bullets().remove(s, true);
 		contadorPuntaje();
 	}
-	
+
 	private function checkLose():Void
 	{
 		if (player.get_vidas()<0)
@@ -295,18 +284,18 @@ class PlayState extends FlxState
 	{
 		score.text = "SCORE " + puntos;
 	}
-	
+
 	public function bossBattle()
 	{
-	
+
 		if (FlxG.overlap(guide, boss))
-		{	
+		{
 			add(bossGui);
-			guide.velocity.x = 0;			
+			guide.velocity.x = 0;
 			player.verificador();
 		}
 	}
-	
+
 	public function checkTileCol()
 	{
 		tileMap.setTileProperties(0, FlxObject.NONE);

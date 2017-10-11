@@ -39,7 +39,7 @@ class Player extends FlxSprite
 		missile = false;
 		verif = false;
 		shield = false;
-		vidas = 10006;
+		vidas = 6;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);
@@ -176,6 +176,8 @@ class Player extends FlxSprite
 		{
 			this.kill();
 			this.reset(guide.x - (FlxG.width / 2) + this.width / 2, FlxG.height / 2);
+			vidas-=1;
+
 		}
 		if (shield == true)
 		{
@@ -273,13 +275,6 @@ class Player extends FlxSprite
 	public function get_vidas():Int
 	{
 		return vidas;
-	}
-
-	public function lose_Life():Void
-	{
-
-		vidas-=1;
-
 	}
 
 	public function get_bullets():FlxTypedGroup<Shot>
