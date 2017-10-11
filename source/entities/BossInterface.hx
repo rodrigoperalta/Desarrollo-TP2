@@ -22,6 +22,8 @@ class BossInterface extends FlxSprite
 		animation.add("vida-3", [3], 1, false);
 		animation.add("vida-4", [4], 1, false);
 		animation.add("chile", [5], 1, false);
+		animation.add("none", [6], 1, false);
+		animation.play("none");
 	}
 
 	override public function update(elapsed:Float):Void

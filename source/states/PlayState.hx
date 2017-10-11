@@ -72,7 +72,7 @@ class PlayState extends FlxState
 		FlxG.camera.follow(guide);
 		checkTileCol();
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
-
+		add(bossGui);
 		add(tileMap);
 		add(guide);
 		add(gui);
@@ -114,9 +114,10 @@ class PlayState extends FlxState
 		enemiesMove.forEachAlive(checkEnemyVision);
 		bossBattle();
 		FlxG.collide(powerUps, player, colPlayerPowerUps);
-		FlxG.collide(boss, player.get_bullets(), colBossbullet);
-		FlxG.collide(boss, player, colPlayerBoss);
+		FlxG.overlap(boss, player.get_bullets(), colBossbullet);
+		FlxG.overlap(boss, player, colPlayerBoss);
 		player.getguide(guide);
+		
 
 	}
 
@@ -290,11 +291,13 @@ class PlayState extends FlxState
 
 		if (FlxG.overlap(guide, boss))
 		{
-			add(bossGui);
+			bossGui.BarraDelBoss();
 			guide.velocity.x = 0;
 			player.verificador();
 		}
 	}
+	
+	
 
 	public function checkTileCol()
 	{
