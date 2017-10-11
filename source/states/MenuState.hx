@@ -29,6 +29,8 @@ class MenuState extends FlxState
 		add(botonNuevoJuego);
 		add(botonSalir);
 		add(nombreGrupo);
+		
+		FlxG.sound.play(AssetPaths.menu__ogg, true);
 	}
 	
 	private function nuevo()

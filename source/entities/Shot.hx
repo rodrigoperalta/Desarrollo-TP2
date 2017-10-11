@@ -14,7 +14,7 @@ class Shot extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-	loadGraphic(AssetPaths.bala__png);
+		loadGraphic(AssetPaths.bala__png);
 		
 		
 	}
@@ -25,6 +25,7 @@ class Shot extends FlxSprite
 		
 		if (x>Reg.limiteX+FlxG.width) 
 			kill();
+		
 		if (y<0) 
 		{
 			kill();

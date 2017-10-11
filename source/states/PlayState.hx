@@ -76,7 +76,9 @@ class PlayState extends FlxState
 		add(gui);
 		add(score);
 		add(lifes);
-
+		
+		FlxG.sound.play(AssetPaths.level__ogg, true);
+		
 		loader.loadEntities(entityCreator, "Entities");
 
 	}
@@ -89,6 +91,16 @@ class PlayState extends FlxState
 		colPlayerTileMap();
 		checkLose();
 		FlxG.collide(enemies, player.get_bullets(), colEnemybullet);
+		if (player.get_OptionNum1())
+		{
+			FlxG.collide(enemies, player.get_Option1().get_bullets(), colEnemybullet);
+			FlxG.collide(enemiesMove, player.get_Option1().get_bullets(), colEnemyMovebullet);
+		}
+		if (player.get_OptionNum2())	
+		{
+			FlxG.collide(enemies, player.get_Option2().get_bullets(), colEnemybullet);
+			FlxG.collide(enemiesMove, player.get_Option2().get_bullets(), colEnemyMovebullet);
+		}
 		FlxG.collide(enemiesMove, player.get_bullets(), colEnemyMovebullet);
 		FlxG.collide(enemies, player, colPlayerEnemies);
 		FlxG.collide(enemiesMove, player, colPlayerEnemiesMove);		

@@ -25,9 +25,9 @@ class PowerUp extends FlxSprite
 
 	public function speedUP():Void
 	{
-		if (Reg.velPlayer<=300)
+		if (Reg.velPlayer<=250)
 		{
-			Reg.velPlayer += 150;
+			Reg.velPlayer += 100;
 		}
 	}
 
