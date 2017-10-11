@@ -39,7 +39,7 @@ class Player extends FlxSprite
 		missile = false;
 		verif = false;
 		shield = false;
-		vidas = 10006;
+		vidas = 6;
 		loadGraphic(AssetPaths.NaveFinal__png, true, 38, 38);
 		animation.add("up", [1], 1, false);
 		animation.add("down", [2], 1, false);

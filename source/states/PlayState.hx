@@ -37,9 +37,9 @@ class PlayState extends FlxState
 	private var enemies:FlxTypedGroup<Enemy>;
 	private var enemiesMove:FlxTypedGroup<EnemyMove>;
 	private var score:FlxText;
-	private var puntos:Int = 0;
+	private var puntos:Int;
 	private var lifes:FlxText;
-	private var puntosVidas:Int = 6;
+	private var puntosVidas:Int;
 	private var boss:Boss;
 	private var gui:Interface;
 	private var bossGui:BossInterface;
@@ -47,7 +47,8 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
-
+		puntos = 0;
+		puntosVidas = 6;
 		FlxG.mouse.visible = false;
 		eneBullets = new FlxTypedGroup<Shot>();
 		bossBullets = new FlxTypedGroup<BossShot>();
@@ -65,7 +66,7 @@ class PlayState extends FlxState
 		score.scrollFactor.y = 0;
 		lifes = new FlxText(2, 220, 0, "LIFE", 8);
 		gui = new Interface(60, 215);
-		bossGui = new BossInterface(boss,60, 215); //falta la posicion
+		bossGui = new BossInterface(boss,FlxG.width/2-90, 5); //falta la posicion
 		lifes.scrollFactor.x = 0;
 		lifes.scrollFactor.y = 0;
 		add(backGround);
@@ -117,7 +118,6 @@ class PlayState extends FlxState
 		FlxG.overlap(boss, player.get_bullets(), colBossbullet);
 		FlxG.overlap(boss, player, colPlayerBoss);
 		player.getguide(guide);
-		
 
 	}
 
@@ -294,10 +294,10 @@ class PlayState extends FlxState
 			bossGui.BarraDelBoss();
 			guide.velocity.x = 0;
 			player.verificador();
+			gui.velocity.set(0, 0);
+			bossGui.velocity.set(0, 0);
 		}
 	}
-	
-	
 
 	public function checkTileCol()
 	{

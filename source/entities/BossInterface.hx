@@ -14,7 +14,7 @@ class BossInterface extends FlxSprite
 	{
 		boss = b;
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.BossLife__png, true, 240, 27);//falta la posicion
+		loadGraphic(AssetPaths.BossLife__png, true, 240, 17);//falta la posicion
 		scale.set(0.7, 0.7);
 		animation.add("vidallena", [0], 1, false);
 		animation.add("vida--", [1], 1, false);
